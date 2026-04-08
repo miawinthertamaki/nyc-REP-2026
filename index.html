@@ -421,8 +421,8 @@ function showOverview() {
   const noneAgencies = AGENCIES.filter(a=>eqStatus(a)==='none');
   const totalLiveInds = AGENCIES.reduce((s,a)=>s+(a.eq_live||[]).length,0);
 
-  let html = `<div class="ov-title">NYC Preliminary Racial Equity Plan</div>
-    <div class="ov-sub">First-ever citywide racial equity plan — 45 agencies, goals across short, medium, and long-term horizons. Green agencies already have live indicators on EquityNYC.</div>
+  let html = `<div class="ov-title">NYC Preliminary Racial Equity Plan 2026</div>
+    <div class="ov-sub">Goals, strategies, and indicators across 45 city agencies — sourced from the <a href="https://www.nyc.gov/assets/equity/downloads/pdf/FINAL_PUBLISH_Preliminary%20REP_4%206%2026.pdf" target="_blank" style="color:var(--rust);text-decoration:underline;text-underline-offset:2px;">Preliminary Citywide Racial Equity Plan</a> (released April 6, 2026). Coverage indicators are drawn from <a href="https://equity.nyc.gov" target="_blank" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">EquityNYC</a>, the City's public data tool for tracking racial and social equity. Green agencies already have live indicators on EquityNYC.</div>
     <div class="ov-stats">
       <div class="stat-box" onclick="openStatAll(this)" title="Click to see all agencies">
         <div class="stat-num" style="color:var(--rust)">45</div>
@@ -509,8 +509,8 @@ function openStatNone(el) {
 function filterByArea(area) {
   currentArea = area;
   document.querySelectorAll('.area-tab').forEach(t => {
-    const btn = t.querySelector('span:first-child');
-    t.classList.toggle('active', btn && btn.textContent.trim() === area);
+    t.classList.remove('active');
+    if (t.textContent.trim().startsWith(area.substring(0,15))) t.classList.add('active');
   });
   buildAgencyList();
   const first = AGENCIES.find(a=>a.area===area);
